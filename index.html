@@ -6,162 +6,137 @@
 <title>Travel Trivia Challenge</title>
 
 <style>
-
-/* =====================
-   MODERN GLOBAL STYLE
-===================== */
-
-* {
-  box-sizing: border-box;
-}
+/* ---------- GLOBAL ---------- */
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1c92d2);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle at top, #1f3c88, #0f2027 70%);
-  overflow: hidden;
-  color: white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
 }
 
-/* floating background blobs */
-body::before,
-body::after {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: linear-gradient(45deg,#ff7a18,#ffd166);
-  filter: blur(120px);
-  opacity: .25;
-  animation: float 14s infinite alternate ease-in-out;
+@keyframes gradientMove {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
-
-body::after {
-  background: linear-gradient(45deg,#4facfe,#00f2fe);
-  animation-delay: 4s;
-}
-
-@keyframes float {
-  from { transform: translate(-150px,-100px); }
-  to { transform: translate(150px,120px); }
-}
-
-/* container */
 
 .container {
-  width: 92%;
-  max-width: 720px;
-  padding: 30px;
-  border-radius: 20px;
-  backdrop-filter: blur(16px);
-  background: rgba(255,255,255,0.08);
-  box-shadow: 0 20px 60px rgba(0,0,0,.35);
-  text-align: center;
-  animation: fadeIn .7s ease;
+  width:90%;
+  max-width:720px;
+  padding:32px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  text-align:center;
+  animation: fadeIn .6s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity:0; transform:translateY(20px);}
-  to { opacity:1; transform:translateY(0);}
+  from {opacity:0; transform:translateY(15px);}
+  to {opacity:1; transform:translateY(0);}
 }
-
-h1 { margin-top: 0; }
 
 .hidden { display:none; }
 
-/* buttons */
+h1 { margin-top:0; }
 
 button {
-  border: none;
-  padding: 14px 18px;
-  border-radius: 12px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all .25s ease;
-  background: linear-gradient(135deg,#ff7a18,#ffb347);
-  color: white;
-  font-weight: 600;
+  border:none;
+  padding:14px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:16px;
+  color:white;
+  background:linear-gradient(135deg,#ff7a18,#ffb347);
+  transition:.25s;
 }
 
 button:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 20px rgba(0,0,0,.25);
+  transform:translateY(-2px) scale(1.03);
 }
 
-/* options */
-
+/* ---------- OPTIONS ---------- */
 .options button {
-  width: 100%;
-  margin: 8px 0;
-  background: rgba(255,255,255,.12);
+  width:100%;
+  margin:8px 0;
+  background:rgba(255,255,255,0.15);
 }
 
-.options button.correct {
-  background: #2ecc71;
-  animation: pop .35s;
+.options button:hover {
+  background:rgba(255,255,255,0.25);
 }
 
-.options button.wrong {
-  background: #e74c3c;
-}
+.correct { background:#2ecc71 !important; animation:pop .3s; }
+.wrong { background:#e74c3c !important; animation:shake .3s; }
 
 @keyframes pop {
-  0%{transform:scale(.9);}
-  70%{transform:scale(1.05);}
-  100%{transform:scale(1);}
+  50%{transform:scale(1.08);}
 }
 
-/* top bar */
-
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  font-weight: 600;
+@keyframes shake {
+  25%{transform:translateX(-5px);}
+  75%{transform:translateX(5px);}
 }
 
-/* timer bar */
+/* ---------- TOP BAR ---------- */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+  font-weight:bold;
+}
 
+/* TIMER BAR */
 .timer-bar {
-  height: 8px;
-  background: rgba(255,255,255,.2);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 20px;
+  height:8px;
+  background:rgba(255,255,255,.2);
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
 }
 
 .timer-fill {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg,#00f2fe,#4facfe);
-  transition: width 1s linear;
+  height:100%;
+  width:100%;
+  background:linear-gradient(90deg,#00f260,#0575e6);
+  transition:width 1s linear;
 }
 
-/* stamps */
-
-.passports {
-  margin-top: 20px;
-}
+/* ---------- PASSPORT ---------- */
+.passports { margin-top:20px; }
 
 .stamp {
-  display: inline-block;
-  border: 2px dashed #ffd166;
-  padding: 6px 12px;
-  margin: 5px;
-  border-radius: 10px;
-  color: #ffd166;
-  animation: stampIn .5s ease;
+  display:inline-block;
+  margin:6px;
+  padding:8px 12px;
+  border:2px dashed #ffd166;
+  border-radius:10px;
+  color:#ffd166;
+  animation:stampIn .5s ease;
 }
 
 @keyframes stampIn {
-  from { transform:scale(2) rotate(-20deg); opacity:0;}
-  to { transform:scale(1) rotate(0); opacity:1;}
+  from {transform:scale(2) rotate(-10deg); opacity:0;}
+  to {transform:scale(1) rotate(0); opacity:1;}
 }
 
+.fade-slide {
+  animation:fadeSlide .4s ease;
+}
+
+@keyframes fadeSlide {
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
 </style>
 </head>
 
@@ -173,22 +148,23 @@ button:hover {
 <div id="startScreen">
 <h1>🌍 Travel Trivia Challenge</h1>
 <p>
-Answer travel trivia before time runs out.<br><br>
-Earn a <b>passport stamp</b> every 3 correct answers in a row!
+Answer challenging world travel questions.<br><br>
+✔ Beat the timer<br>
+✔ Build streaks<br>
+✔ Earn a passport stamp every 3 correct answers!
 </p>
 <button onclick="startGame()">Start Adventure</button>
 </div>
 
 <!-- GAME -->
 <div id="gameScreen" class="hidden">
-
 <div class="top-bar">
 <div>Score: <span id="score">0</span></div>
 <div>⏱ <span id="time">15</span>s</div>
 </div>
 
 <div class="timer-bar">
-<div class="timer-fill" id="timerFill"></div>
+<div id="timerFill" class="timer-fill"></div>
 </div>
 
 <h2 id="question"></h2>
@@ -198,7 +174,6 @@ Earn a <b>passport stamp</b> every 3 correct answers in a row!
 ✈️ Passport Stamps:
 <div id="stamps"></div>
 </div>
-
 </div>
 
 <!-- END -->
@@ -212,41 +187,32 @@ Earn a <b>passport stamp</b> every 3 correct answers in a row!
 </div>
 
 <script>
-
-/* =====================
-   QUESTIONS (13 TOTAL)
-===================== */
-
+/* ---------- HARDER QUESTIONS (13 TOTAL) ---------- */
 const questions = [
-{q:"Which city is known as the City of Love?",options:["Rome","Paris","Barcelona","Vienna"],answer:1},
-{q:"Which country has the Great Barrier Reef?",options:["USA","Australia","Thailand","Brazil"],answer:1},
-{q:"Mount Fuji is located in which country?",options:["China","Japan","South Korea","Nepal"],answer:1},
-{q:"Which continent is Egypt in?",options:["Asia","Europe","Africa","South America"],answer:2},
-{q:"What is the capital of Canada?",options:["Toronto","Vancouver","Ottawa","Montreal"],answer:2},
-{q:"Machu Picchu is located in which country?",options:["Peru","Chile","Mexico","Colombia"],answer:0},
-{q:"Which country is famous for fjords?",options:["Norway","Italy","India","Spain"],answer:0},
-{q:"The Colosseum is found in which city?",options:["Athens","Rome","Istanbul","Lisbon"],answer:1},
-
-/* NEW QUESTIONS */
-{q:"Which desert covers much of northern Africa?",options:["Gobi","Sahara","Atacama","Mojave"],answer:1},
-{q:"What is the capital of Thailand?",options:["Bangkok","Phuket","Hanoi","Manila"],answer:0},
-{q:"Which European country uses the krona currency?",options:["Sweden","France","Portugal","Greece"],answer:0},
-{q:"The island of Bali belongs to which country?",options:["Philippines","Indonesia","Malaysia","Sri Lanka"],answer:1},
-{q:"Which U.S. city is home to the Golden Gate Bridge?",options:["Seattle","San Francisco","Los Angeles","San Diego"],answer:1}
+{q:"Which airport has the IATA code 'DXB'?",options:["Doha","Dubai","Abu Dhabi","Istanbul"],answer:1},
+{q:"Which European capital sits on both the Danube River and was once two cities?",options:["Vienna","Budapest","Prague","Bratislava"],answer:1},
+{q:"Which country controls the Faroe Islands?",options:["Norway","Denmark","Iceland","UK"],answer:1},
+{q:"The Inca Trail leads primarily to which site?",options:["Nazca Lines","Machu Picchu","Cusco Cathedral","Lake Titicaca"],answer:1},
+{q:"Which desert spans across Namibia, Botswana, and South Africa?",options:["Sahara","Kalahari","Atacama","Gobi"],answer:1},
+{q:"Which city has the busiest international passenger traffic (historically)?",options:["Dubai","London","Atlanta","Singapore"],answer:0},
+{q:"What is the capital of New Zealand?",options:["Auckland","Christchurch","Wellington","Queenstown"],answer:2},
+{q:"Which sea separates Saudi Arabia and Africa?",options:["Arabian Sea","Red Sea","Persian Gulf","Mediterranean"],answer:1},
+{q:"Which UNESCO site is nicknamed the 'Lost City of Petra'?",options:["Jordan","Oman","Turkey","Morocco"],answer:0},
+{q:"Which country has the most time zones?",options:["USA","Russia","France","Australia"],answer:2},
+{q:"Which mountain is the highest outside Asia?",options:["Denali","Aconcagua","Kilimanjaro","Elbrus"],answer:1},
+{q:"Which canal connects the Mediterranean Sea to the Red Sea?",options:["Panama Canal","Suez Canal","Kiel Canal","Corinth Canal"],answer:1},
+{q:"Which country’s flag features a cedar tree?",options:["Lebanon","Cyprus","Malta","Georgia"],answer:0}
 ];
 
-/* =====================
-   GAME STATE
-===================== */
-
+/* ---------- STATE ---------- */
 let currentQuestion=0;
 let score=0;
 let streak=0;
 let stamps=0;
-let timeLeft=15;
 let timer;
+let timeLeft=15;
 
-/* elements */
+/* ---------- ELEMENTS ---------- */
 const startScreen=document.getElementById("startScreen");
 const gameScreen=document.getElementById("gameScreen");
 const endScreen=document.getElementById("endScreen");
@@ -257,10 +223,7 @@ const timeEl=document.getElementById("time");
 const stampsEl=document.getElementById("stamps");
 const timerFill=document.getElementById("timerFill");
 
-/* =====================
-   GAME FLOW
-===================== */
-
+/* ---------- GAME ---------- */
 function startGame(){
 startScreen.classList.add("hidden");
 gameScreen.classList.remove("hidden");
@@ -270,12 +233,18 @@ score=0;
 streak=0;
 stamps=0;
 stampsEl.innerHTML="";
+updateUI();
 loadQuestion();
 }
 
 function loadQuestion(){
 resetTimer();
 const q=questions[currentQuestion];
+
+questionEl.classList.remove("fade-slide");
+void questionEl.offsetWidth;
+questionEl.classList.add("fade-slide");
+
 questionEl.textContent=q.q;
 optionsEl.innerHTML="";
 
@@ -293,6 +262,7 @@ function selectAnswer(index,button){
 clearInterval(timer);
 const correct=questions[currentQuestion].answer;
 const buttons=optionsEl.querySelectorAll("button");
+
 buttons.forEach(b=>b.disabled=true);
 
 if(index===correct){
@@ -301,8 +271,8 @@ score+=10;
 streak++;
 
 if(streak===3){
-streak=0;
 stamps++;
+streak=0;
 addStamp();
 }
 }else{
@@ -317,20 +287,13 @@ setTimeout(nextQuestion,1200);
 
 function nextQuestion(){
 currentQuestion++;
-if(currentQuestion>=questions.length){
-endGame();
-}else{
-loadQuestion();
-}
+if(currentQuestion>=questions.length) endGame();
+else loadQuestion();
 }
 
 function updateUI(){
 scoreEl.textContent=score;
 }
-
-/* =====================
-   PASSPORT STAMPS
-===================== */
 
 function addStamp(){
 const s=document.createElement("div");
@@ -339,10 +302,7 @@ s.textContent="🌎 Stamp #"+stamps;
 stampsEl.appendChild(s);
 }
 
-/* =====================
-   TIMER
-===================== */
-
+/* ---------- TIMER ---------- */
 function startTimer(){
 timeLeft=15;
 timeEl.textContent=timeLeft;
@@ -361,27 +321,22 @@ nextQuestion();
 },1000);
 }
 
-function resetTimer(){
-clearInterval(timer);
-}
+function resetTimer(){ clearInterval(timer); }
 
-/* =====================
-   END GAME
-===================== */
-
+/* ---------- END ---------- */
 function endGame(){
 gameScreen.classList.add("hidden");
 endScreen.classList.remove("hidden");
 
 document.getElementById("finalScore").textContent=score;
-const box=document.getElementById("finalStamps");
-box.innerHTML="";
 
+const final=document.getElementById("finalStamps");
+final.innerHTML="";
 for(let i=1;i<=stamps;i++){
-const s=document.createElement("div");
-s.className="stamp";
-s.textContent="🌎 Stamp #"+i;
-box.appendChild(s);
+const el=document.createElement("div");
+el.className="stamp";
+el.textContent="🌎 Stamp #"+i;
+final.appendChild(el);
 }
 }
 
@@ -389,7 +344,7 @@ function restartGame(){
 endScreen.classList.add("hidden");
 startScreen.classList.remove("hidden");
 }
-
 </script>
+
 </body>
 </html>
